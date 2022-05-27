@@ -18,7 +18,7 @@ exports.login_google = catchAsync(async (req, res, next) => {
     return next(new AppError("Register through your manager first!", 404));
   }
 
-  res.cookie("google-jwt", req.body.idToken);
+  // res.cookie("google-jwt", req.body.idToken);
   return res.status(200).json({
     status: "Login Successful",
     employee: {

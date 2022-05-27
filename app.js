@@ -1,6 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
+// const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const compression = require("compression");
 const limiter = require("express-rate-limit");
@@ -37,7 +37,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(
   compression({
     level: 6,
