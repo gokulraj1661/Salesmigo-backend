@@ -15,13 +15,16 @@ exports.userJoin = (id, username, email, room, type, photoUrl, status) => {
   };
   //for limiting the number of socket connections each user can make
   // users = users.filter(oneUser=>oneUser.email !== email)
-
   users.push(user);
   return user;
 };
 
 exports.customerJoin = (username) => {
   const customer = { username };
+  // if (
+  //   customers.filter((customer) => customer.username === username).length === 0
+  // ) {
+  // }
   customers.push(customer);
   return customers;
 };
@@ -42,22 +45,14 @@ exports.getRoomUsers = (room) => {
   return users.filter((user) => user.room === room);
 };
 
-exports.getCustomersAllotedToWorker = (workerId) => {
-  return users.map((user) => {
-    if (user.id === workerId) {
-      console.log(user.customersCatering[0]);
-      return user.customersCatering;
-    }
-  });
-};
 exports.AllocateCustomer = (data) => {
-  if (data.worker) {
+  if (data.worker && data.worker.id) {
     users.forEach((user) => {
       if (user.id === data.worker.id) {
-        console.log(user.id);
+        // console.log(user.id);
         user.status = "Occupied";
         user.customersCatering.push(data.customer);
-        console.log(user.customersCatering[0]);
+        console.log("customer cater", user.customersCatering[0]);
       }
     });
     const index = customers.findIndex(
@@ -69,4 +64,29 @@ exports.AllocateCustomer = (data) => {
       customers.splice(index, 1)[0];
     }
   }
+};
+
+exports.getCustomersAllotedToWorker = (workerId) => {
+  const foundCustomers = users
+    .filter((user) => {
+      return user.id === workerId;
+    })
+    .map((foundUser) => foundUser.customersCatering);
+  return foundCustomers;
+};
+
+exports.customerCatered = (customerUsername, workerId) => {
+  users.forEach((user) => {
+    if (user.id === workerId && user.customersCatering) {
+      user.customersCatering = user.customersCatering.filter(
+        (customerAllocated) => {
+          console.log(
+            customerAllocated.username.split("_")[1],
+            customerUsername
+          );
+          return customerAllocated.username.split("_")[1] !== customerUsername;
+        }
+      );
+    }
+  });
 };
