@@ -82,8 +82,9 @@ To start the server it in development mode,
   node server.js
 ```
 
+## API-Documentation
 
-
+Checkout my application's API Documentation at: https://documenter.getpostman.com/view/17862825/Uz5FKGd4
 
 ## Deployment
 
