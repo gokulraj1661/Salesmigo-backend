@@ -30,7 +30,7 @@ app.use(
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001"],
+    origin: ["http://localhost:3000", "http://localhost:3001", "https://salesmigo.vercel.app"],
     credentials: true,
   })
 );
